@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableMethodSecurity // 开启方法权限控制
 public class SecurityConfig {
 
     // 内存中保存用户信息
@@ -63,9 +65,9 @@ public class SecurityConfig {
                                 // 拥有权限 ROLE_ADMIN 和 ROLE_TEST 可以访问 /user/authTest2
 //                                .requestMatchers("/user/authTest2").hasAnyAuthority("ROLE_ADMIN", "ROLE_TEST")
                                 // 角色 ROLE_USER 可以访问 /user/authTest1 必须要是 USER 角色才能访问
-                                .requestMatchers("/user/authTest1").hasRole("USER")
+//                                .requestMatchers("/user/authTest1").hasRole("USER")
                                 // 角色 ROLE_USER 可以访问 /user/authTest1 必须要是 ADMIN 角色才能访问
-                                .requestMatchers("/user/authTest2").hasRole("ADMIN")
+//                                .requestMatchers("/user/authTest2").hasRole("ADMIN")
                                 .requestMatchers(
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",

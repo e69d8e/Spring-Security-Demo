@@ -28,6 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String result = encoder.encode(password);
         user.setPassword("{bcrypt}" + result);
         user.setEnabled(true);
+        user.setAuthorityId(2);
         save(user);
         return Result.ok();
 

@@ -63,6 +63,7 @@ public class DBUserDetailsManager implements UserDetailsService {
                     .accountExpired(!user.getEnabled()) // 用户凭证是否过期
                     .accountLocked(!user.getEnabled()) // 用户是否被锁定
                     .roles(authority.getAuthority()) // 添加角色
+//                    .authorities("") // 添加权限 会覆盖前面的 roles(authority.getAuthority())
                     .build();
         }
 
