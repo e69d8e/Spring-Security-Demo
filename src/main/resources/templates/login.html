@@ -12,7 +12,7 @@
 <!--th:action="@{/login}" ，
 使用动态参数，表单中会自动生成_csrf隐藏字段，用于防止csrf攻击
 login: 和登录页面保持一致即可，SpringSecurity自动进行登录认证-->
-<form th:action="@{/login}" method="post">
+<form th:action="@{/api/login}" method="post">
     <div>
         <!--name必须为"username"-->
         <input type="text" name="username" placeholder="用户名"/>

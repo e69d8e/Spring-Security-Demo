@@ -74,20 +74,26 @@ public class SecurityConfig {
                                         "/swagger-ui.html",
                                         "/doc.html",
                                         "/webjars/**",
-                                        "user/register"
+                                        "/user/register"
+//                                        "/api/login"
                                 ).permitAll() // 放行swagger
                                 .anyRequest() // 所有请求
                                 .authenticated()) // 已认证请求会自动被授权
                 .formLogin(
-                        from -> from.loginPage("/login").permitAll()
-                                .successHandler(new MyAuthenticationSuccessHandler()) // 登录成功处理
-                                .failureHandler(new MyAuthenticationFailHandler()) // 登录失败处理
+                        login -> login
+                                        .loginPage("/login").permitAll() // 登录页面
+                                        .loginProcessingUrl("/api/login").permitAll() // 前端登录接口
+                                        .successHandler(new MyAuthenticationSuccessHandler()) // 登录成功处理
+                                        .failureHandler(new MyAuthenticationFailHandler()) // 登录失败处理
                 )// 自定义登录页面 .permitAll() 表示登录页面可以任意访问
 //                .formLogin(Customizer.withDefaults()); // 表单登录方式 默认登录页面
 //                .httpBasic(Customizer.withDefaults()); // 基本授权方式 浏览器弹出框输入用户名密码
         ;
         // 注销
-        http.logout(logout -> logout.logoutSuccessHandler(new MyLogoutHandler()));
+        http.logout(logout -> logout
+                .logoutSuccessHandler(new MyLogoutHandler()) // 注销成功处理
+                .logoutUrl("/api/logout") // 注销接口
+        );
         // 错误信息
         http.exceptionHandling(
                 exception -> {
